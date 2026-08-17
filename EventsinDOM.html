@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event listeners</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-top: 4px solid #3498db;
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #2980b9;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+        button {
+            padding: 8px 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        input, select {
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        p {
+            margin: 10px 0 0 0;
+            font-size: 14px;
+            font-style: italic;
+            color: #555;
+        }
+        .hover-box {
+            width: 100%;
+            height: 60px;
+            background-color: #e0f7fa;
+            border: 2px dashed #00acc1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #006064;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .context-box {
+            width: 100%;
+            height: 60px;
+            background-color: #f1f8e9;
+            border: 2px dashed #7cb342;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #33691e;
+            cursor: context-menu;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>EventListeners in DOM</h1>
+    <p class="intro">This is an assignment document that contains 12 different beginner-friendly methods used in event listeners.</p>
+
+    <div class="grid-container">
+        <!-- 1. Click Event -->
+        <div class="card">
+            <h3>1. Click Event</h3>
+            <p>Triggers when the element is clicked.</p>
+            <br>
+            <button id="btn-click">Click Me</button>
+            <p id="msg-click"></p>
+        </div>
+
+        <!-- 2. Double Click Event -->
+        <div class="card">
+            <h3>2. Double Click Event</h3>
+            <p>Triggers when the element is double-clicked.</p>
+            <br>
+            <button id="btn-dblclick">Double Click Me</button>
+            <p id="msg-dblclick"></p>
+        </div>
+
+        <!-- 3. Mouse Over Event -->
+        <div class="card">
+            <h3>3. Mouse Over Event</h3>
+            <p>Triggers when mouse enters the element.</p>
+            <br>
+            <div id="box-hover" class="hover-box">Hover mouse here</div>
+        </div>
+
+        <!-- 4. Mouse Out Event -->
+        <div class="card">
+            <h3>4. Mouse Out Event</h3>
+            <p>Triggers when mouse leaves the element.</p>
+            <br>
+            <div id="box-leave" class="hover-box" style="background-color: #ffe0b2; border-color: #fb8c00; color: #e65100;">Leave mouse here</div>
+            <p id="msg-leave"></p>
+        </div>
+
+        <!-- 5. Focus Event -->
+        <div class="card">
+            <h3>5. Focus Event</h3>
+            <p>Triggers when an input field gets focus.</p>
+            <input type="text" id="input-focus" placeholder="Click inside to focus..." title="Focus Input">
+            <p id="msg-focus"></p>
+        </div>
+
+        <!-- 6. Blur Event -->
+        <div class="card">
+            <h3>6. Blur Event</h3>
+            <p>Triggers when an input field loses focus.</p>
+            <input type="text" id="input-blur" placeholder="Click inside and then outside..." title="Blur Input">
+            <p id="msg-blur"></p>
+        </div>
+
+        <!-- 7. Input Event -->
+        <div class="card">
+            <h3>7. Input Event</h3>
+            <p>Triggers dynamically when typing in an input field.</p>
+            <input type="text" id="input-type" placeholder="Type something..." title="Input Text">
+            <p id="msg-type">You typed: </p>
+        </div>
+
+        <!-- 8. Change Event -->
+        <div class="card">
+            <h3>8. Change Event</h3>
+            <p>Triggers when a dropdown selection is changed.</p>
+            <select id="select-fruit" title="Select a fruit">
+                <option value="">-- Choose a fruit --</option>
+                <option value="Apple">Apple</option>
+                <option value="Banana">Banana</option>
+                <option value="Orange">Orange</option>
+            </select>
+            <p id="msg-change">Selection: None</p>
+        </div>
+
+        <!-- 9. Key Down Event -->
+        <div class="card">
+            <h3>9. Key Down Event</h3>
+            <p>Triggers when a keyboard key is pressed down.</p>
+            <input type="text" id="input-keydown" placeholder="Press any key here..." title="Key Down Input">
+            <p id="msg-keydown">Key pressed: </p>
+        </div>
+
+        <!-- 10. Submit Event -->
+        <div class="card">
+            <h3>10. Submit Event</h3>
+            <p>Triggers when a form is submitted.</p>
+            <form id="simple-form">
+                <input type="text" id="form-name" placeholder="Enter name" required style="margin-bottom: 10px;" title="Submit Name">
+                <button type="submit">Submit Form</button>
+            </form>
+            <p id="msg-submit"></p>
+        </div>
+
+        <!-- 11. Copy Event -->
+        <div class="card">
+            <h3>11. Copy Event</h3>
+            <p>Triggers when you copy the text below.</p>
+            <br>
+            <div id="copy-text" style="background: #eee; padding: 5px; border-radius: 4px; text-align: center; user-select: all;">Copy me!</div>
+            <p id="msg-copy"></p>
+        </div>
+
+        <!-- 12. Context Menu Event -->
+        <div class="card">
+            <h3>12. Context Menu Event</h3>
+            <p>Triggers when you right-click the box.</p>
+            <br>
+            <div id="box-context" class="context-box">Right click here</div>
+            <p id="msg-context"></p>
+        </div>
+    </div>
+
+    <script>
+        // 1. Click Event
+        const btnClick = document.getElementById("btn-click");
+        const msgClick = document.getElementById("msg-click");
+        btnClick.addEventListener("click", function() {
+            msgClick.innerText = "Button clicked! (click event triggered)";
+        });
+
+        // 2. Double Click Event
+        const btnDblClick = document.getElementById("btn-dblclick");
+        const msgDblClick = document.getElementById("msg-dblclick");
+        btnDblClick.addEventListener("dblclick", function() {
+            msgDblClick.innerText = "Button double clicked! (dblclick event triggered)";
+            btnDblClick.style.backgroundColor = "#2ecc71";
+        });
+
+        // 3. Mouse Over Event
+        const boxHover = document.getElementById("box-hover");
+        boxHover.addEventListener("mouseover", function() {
+            boxHover.style.backgroundColor = "#80deea";
+            boxHover.innerText = "Mouse is over! (mouseover)";
+        });
+
+        // 4. Mouse Out Event
+        const boxLeave = document.getElementById("box-leave");
+        const msgLeave = document.getElementById("msg-leave");
+        boxLeave.addEventListener("mouseout", function() {
+            boxLeave.style.backgroundColor = "#ffcc80";
+            boxLeave.innerText = "Mouse left!";
+            msgLeave.innerText = "Mouse left the orange box! (mouseout)";
+        });
+
+        // 5. Focus Event
+        const inputFocus = document.getElementById("input-focus");
+        const msgFocus = document.getElementById("msg-focus");
+        inputFocus.addEventListener("focus", function() {
+            inputFocus.style.backgroundColor = "#ffe0b2";
+            msgFocus.innerText = "Input is in focus! (focus)";
+        });
+
+        // 6. Blur Event
+        const inputBlur = document.getElementById("input-blur");
+        const msgBlur = document.getElementById("msg-blur");
+        inputBlur.addEventListener("blur", function() {
+            inputBlur.style.backgroundColor = "#f8bbd0";
+            msgBlur.innerText = "Input lost focus! (blur)";
+        });
+
+        // 7. Input Event
+        const inputType = document.getElementById("input-type");
+        const msgType = document.getElementById("msg-type");
+        inputType.addEventListener("input", function() {
+            msgType.innerText = "You typed: " + inputType.value;
+        });
+
+        // 8. Change Event
+        const selectFruit = document.getElementById("select-fruit");
+        const msgChange = document.getElementById("msg-change");
+        selectFruit.addEventListener("change", function() {
+            msgChange.innerText = "Selection: " + selectFruit.value + " (change)";
+        });
+
+        // 9. Key Down Event
+        const inputKeydown = document.getElementById("input-keydown");
+        const msgKeydown = document.getElementById("msg-keydown");
+        inputKeydown.addEventListener("keydown", function(event) {
+            msgKeydown.innerText = "Key pressed: " + event.key + " (keydown)";
+        });
+
+        // 10. Submit Event
+        const simpleForm = document.getElementById("simple-form");
+        const formName = document.getElementById("form-name");
+        const msgSubmit = document.getElementById("msg-submit");
+        simpleForm.addEventListener("submit", function(event) {
+            event.preventDefault(); // Stop form from refreshing the page
+            msgSubmit.innerText = "Form submitted! Hello, " + formName.value + " (submit)";
+        });
+
+        // 11. Copy Event
+        const copyText = document.getElementById("copy-text");
+        const msgCopy = document.getElementById("msg-copy");
+        copyText.addEventListener("copy", function() {
+            msgCopy.innerText = "Text copied successfully! (copy)";
+            msgCopy.style.color = "#27ae60";
+        });
+
+        // 12. Context Menu Event
+        const boxContext = document.getElementById("box-context");
+        const msgContext = document.getElementById("msg-context");
+        boxContext.addEventListener("contextmenu", function(event) {
+            event.preventDefault(); // Stop default browser context menu from appearing
+            msgContext.innerText = "Right-clicked custom action! (contextmenu)";
+            boxContext.style.backgroundColor = "#c5e1a5";
+        });
+    </script>
+</body>
+</html>
